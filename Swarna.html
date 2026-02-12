@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Swarna ❤️</title>
+
+<style>
+/* ===== Proper Full Screen Section Flow ===== */
+/* ===== Correct Section Flow ===== */
+section{
+    min-height:100vh;
+    width:100%;
+    padding:0;
+    position:relative;
+}
+
+/* Only these sections should be center */
+.top-section,
+#introScreen,
+#finalMessage{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* These sections should start from TOP */
+#celebration,
+#carouselScreen{
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    align-items:center;
+    padding-top:120px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+
+body{
+    color:white;
+    background: url("backgroundimage.png") no-repeat center center fixed;
+    background-size: cover;
+    scroll-behavior:smooth;
+}
+
+/* ===== TOP SECTION ===== */
+.top-section{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.top-section .container{
+    flex-wrap:wrap;
+    justify-content:center;
+}
+.grid-gallery{
+    margin-top:10px;
+}
+.carousel{
+    margin-top:40px;
+}
+
+#celebration h1,
+#carouselScreen h1{
+    font-size:44px;
+    margin-bottom:40px;
+}
+
+
+/* Layout */
+.container{
+    display:flex;
+    align-items:center;
+    gap:60px;
+    z-index:3;
+}
+
+/* Photo */
+.left-photo{
+    width:340px;
+    height:460px;
+    border-radius:35px;
+    object-fit:cover;
+    box-shadow:0 30px 80px rgba(0,0,0,0.6);
+    border:6px solid rgba(255,255,255,0.6);
+}
+
+/* Card */
+.card{
+    width:520px;
+    padding:40px;
+    border-radius:30px;
+    background:rgba(255,255,255,0.18);
+    backdrop-filter:blur(18px);
+    box-shadow:0 25px 70px rgba(0,0,0,0.4);
+    text-align:center;
+}
+
+.typing{
+    font-size:17px;
+    line-height:1.9;
+    min-height:260px;
+}
+
+button{
+    margin-top:20px;
+    padding:14px 34px;
+    border-radius:35px;
+
+    border:1.5px solid rgba(255,255,255,0.5);
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+
+    color:white;
+    font-size:17px;
+    cursor:pointer;
+
+    box-shadow:0 12px 35px rgba(0,0,0,0.35);
+    transition:all 0.35s ease;
+}
+
+/* Soft glow on hover */
+button:hover{
+    transform:translateY(-3px) scale(1.05);
+    background:rgba(255,255,255,0.25);
+    box-shadow:0 18px 45px rgba(0,0,0,0.45);
+}
+
+
+/* Falling emojis */
+.love{
+    position:fixed;
+    top:-10vh;
+    font-size:22px;
+    opacity:0.7;
+    animation:fall linear infinite;
+    z-index:1;
+}
+@keyframes fall{ to{transform:translateY(110vh);} }
+
+/* Popup */
+#loveMessage{
+    position:fixed;
+    top:50%;left:50%;
+    transform:translate(-50%,-50%) scale(0.5);
+    background:rgba(255,255,255,0.25);
+    backdrop-filter:blur(15px);
+    padding:50px 70px;
+    border-radius:30px;
+    font-size:34px;
+    opacity:0;
+    z-index:5;
+    transition:all 1s ease;
+    text-align:center;
+}
+#loveMessage.show{
+    opacity:1;
+    transform:translate(-50%,-50%) scale(1);
+}
+#closeBtn{
+    position:absolute;top:12px;right:18px;
+    font-size:22px;cursor:pointer;
+}
+
+/* ===== CELEBRATION SECTION ===== */
+#celebration{
+    min-height:80vh;
+    padding:40px 0 8px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;   /* start from top */
+    gap:10px;
+    background:rgba(0,0,0,0.15);
+    backdrop-filter:blur(10px);
+}
+
+
+/* Grid Gallery */
+.grid-gallery{
+    display:grid;
+    grid-template-columns:repeat(3,220px);
+    gap:25px;
+}
+.grid-gallery img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    object-position:center 25%;  /* ⭐ perfect face framing */
+    border-radius:25px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.4);
+    transition:0.4s;
+}
+
+
+.grid-gallery img:hover{
+    transform:scale(1.08);
+}
+
+/* 3D Carousel */
+/* ===== Responsive 3D Carousel ===== */
+.carousel{
+    width:90%;
+    max-width:900px;
+    height:340px;
+    margin:40px auto 0;
+    perspective:1200px;
+}
+
+.carousel-inner{
+    width:100%;
+    height:100%;
+    position:relative;
+    transform-style:preserve-3d;
+    animation:rotate 22s infinite linear;
+}
+
+/* Image size relative to screen */
+.carousel-inner img{
+    position:absolute;
+
+    width:260px;
+    height:340px;              /* 🔥 taller rectangle */
+
+    object-fit:cover;
+    object-position:center 20%; /* move image slightly up */
+
+    border-radius:25px;
+    left:50%;
+    top:50%;
+    transform-origin:center;
+
+    margin-left:-130px;  /* half width */
+    margin-top:-170px;   /* half height */
+}
+
+/* Proper circular spacing */
+.carousel-inner img:nth-child(1){transform:rotateY(0deg) translateZ(430px);}
+.carousel-inner img:nth-child(2){transform:rotateY(60deg) translateZ(360px);}
+.carousel-inner img:nth-child(3){transform:rotateY(120deg) translateZ(360px);}
+.carousel-inner img:nth-child(4){transform:rotateY(180deg) translateZ(360px);}
+.carousel-inner img:nth-child(5){transform:rotateY(240deg) translateZ(360px);}
+.carousel-inner img:nth-child(6){transform:rotateY(300deg) translateZ(360px);}
+
+@keyframes rotate{
+    from{transform:rotateY(0deg);}
+    to{transform:rotateY(360deg);}
+}
+
+
+/* Fireworks canvas */
+#fireworks{
+    position:fixed;
+    top:0;left:0;
+    pointer-events:none;
+    z-index:4;
+}
+/* Next button style */
+.nextBtn{
+    margin-top:0px;
+    padding:14px 32px;
+    border:none;
+    border-radius:30px;
+    background:white;
+    color:#ff4d6d;
+    font-size:16px;
+    cursor:pointer;
+}
+
+/* ===== Carousel Full Screen Page ===== */
+#carouselScreen{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;   /* ⭐ start from top like memories */
+    align-items:center;
+    padding-top:0px;           /* same feel as memories */
+    gap:40px;
+    background:rgba(0,0,0,0.15);
+    backdrop-filter:blur(10px);
+}
+
+/* move title little down */
+#carouselScreen h1{
+    margin-top:25px;
+}
+
+/* button spacing below carousel */
+#carouselScreen .nextBtn{
+    margin-top:40px;
+}
+
+/* Go To Top Button */
+#goTopBtn{
+    position:fixed;
+    bottom:30px;
+    right:30px;
+
+    width:70px;
+    height:70px;
+    border-radius:50%;
+
+    border:1.5px solid rgba(255,255,255,0.45);
+    background:rgba(255,255,255,0.12);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+
+    box-shadow:0 15px 45px rgba(0,0,0,0.45);
+    cursor:pointer;
+    z-index:99999;
+    display:none;
+}
+
+/* ⭐ Perfect centered CSS arrow */
+#goTopBtn::before{
+    content:"";
+    position:absolute;
+    top:50%;
+    left:50%;
+
+    width:18px;
+    height:18px;
+
+    border-left:4px solid white;
+    border-top:4px solid white;
+
+    transform:translate(-50%,-40%) rotate(45deg);
+}
+
+
+/* Hover effect */
+#goTopBtn:hover{
+    transform:translateY(-6px) scale(1.08);
+    background:rgba(255,255,255,0.25);
+}
+
+/* ===== INTRO SCREEN ===== */
+#introScreen{
+    flex-direction:column;
+    gap:25px;
+    text-align:center;
+}
+
+
+#introScreen h1{
+    font-size:56px;
+    font-family:cursive;
+    color:white;
+}
+
+#introScreen p{
+    font-size:22px;
+    opacity:0.9;
+}
+
+/* ===== FINAL MESSAGE ===== */
+#finalMessage{
+    min-height:100vh;
+    padding:120px 0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+#celebration h1,
+#carouselScreen h1{
+    margin-top:25px;
+    font-size:42px;
+}
+
+
+.finalCard{
+    width:800px;
+    padding:50px;
+    border-radius:30px;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(18px);
+    text-align:center;
+    box-shadow:0 20px 60px rgba(0,0,0,0.4);
+}
+
+.finalCard h1{
+    font-family:cursive;
+    margin-bottom:25px;
+}
+
+.finalCard p{
+    font-size:20px;
+    line-height:1.9;
+}
+section + section,
+.top-section + section{
+    margin-top:40px;
+}
+
+
+
+</style>
+</head>
+
+<body>
+<button id="goTopBtn" onclick="goTop()"></button>
+
+<!-- 🌸 Intro Screen -->
+<section id="introScreen">
+    <h1 id="introTitle"></h1>
+    <p id="introSub"></p>
+    <button onclick="goMain()">Start the Celebration 🎉</button>
+</section>
+
+
+<div class="top-section">
+    <div class="container">
+        <img src="swarnaimg.jpg" class="left-photo">
+        <div class="card">
+            <h1>🎂 Happy Birthday Swarna 🎉</h1>
+            <div class="typing" id="text"></div>
+            <button onclick="showLove()">Tap Here ❤️</button>
+        </div>
+    </div>
+</div>
+
+<div id="loveMessage">
+    <span id="closeBtn" onclick="closeLove()">❌</span>
+    ❤️I Love You Swarna ❤️<br>
+    Forever Yours,<br>
+    <b>❤️Aravind❤️</b>
+</div>
+
+<section id="celebration">
+    <h1>Memories With You ❤️</h1>
+
+    <div class="grid-gallery">
+        <img src="img1.jpg">
+        <img src="img2.jpg">
+        <img src="img3.jpg">
+        <img src="img4.jpg">
+        <img src="img5.jpg">
+        <img src="img6.jpg">
+    </div>
+    <button class="nextBtn" onclick="goCarousel()">See More Memories ❤️</button>
+
+</section>
+
+<!-- 💞 Carousel Screen -->
+<section id="carouselScreen">
+    <h1>Our Beautiful Moments ❤️</h1>
+
+    <div class="carousel">
+        <div class="carousel-inner">
+            <img src="img1.jpg">
+            <img src="img2.jpg">
+            <img src="img3.jpg">
+            <img src="img4.jpg">
+            <img src="img5.jpg">
+            <img src="img6.jpg">
+        </div>
+    </div>
+	    <button class="nextBtn" onclick="goFinal()">Read My Message ❤️</button>
+
+</section>
+
+<!-- 💌 Final Message Screen -->
+<section id="finalMessage">
+    <div class="finalCard">
+        <h1>A Special Message for You ❤️</h1>
+        <p>
+            On this special day, I want you to know how grateful I am to have you in my life.
+            Your laughter fills my days with joy, your love gives me strength,
+            and your presence makes everything better.
+            <br><br>
+            Happy Birthday my love. Here’s to many more years of laughter,
+            beautiful memories, and endless happiness together. ❤️
+        </p>
+    </div>
+</section>
+
+<canvas id="fireworks"></canvas>
+
+<audio id="bgMusic" src="bdymusic.mp3" loop></audio>
+<audio id="wishMusic" src="wishes.mp3"></audio>
+
+<script>
+const bg=document.getElementById("bgMusic");
+const wish=document.getElementById("wishMusic");
+
+window.addEventListener("load",()=>{
+    setTimeout(()=>{bg.volume=0.4;bg.play().catch(()=>{});},400);
+});
+wish.onended=()=>bg.play();
+
+/* Falling emojis */
+const loves=["❤️","💖","💕","💘","💝"];
+for(let i=0;i<40;i++){
+    let e=document.createElement("div");
+    e.className="love";
+    e.innerHTML=loves[Math.floor(Math.random()*loves.length)];
+    e.style.left=Math.random()*100+"vw";
+    e.style.animationDuration=(5+Math.random()*6)+"s";
+    document.body.appendChild(e);
+}
+
+/* Typing message */
+const msg=`Swarna ❤️,
+
+Every second with you is my favorite memory, and every memory with you is my greatest treasure.
+
+From the beautiful days we shared to the dreams we are building for our future, life feels magical because you are in it.
+
+Your smile brings me peace.
+Your voice comforts me.
+Your love gives me strength.
+
+Happy Birthday, my love.
+
+Forever yours,  
+Aravind ❤️`;
+let i=0;
+(function type(){
+    if(i<msg.length){
+        document.getElementById("text").innerHTML+=msg.charAt(i);
+        i++;setTimeout(type,25);
+    }
+})();
+
+/* Fireworks */
+const canvas=document.getElementById('fireworks');
+const ctx=canvas.getContext('2d');
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+let particles=[];
+function random(a,b){return Math.random()*(b-a)+a;}
+function createFirework(x,y){
+    for(let i=0;i<80;i++){
+        particles.push({x,y,r:random(2,4),c:`hsl(${random(0,360)},100%,60%)`,
+        sx:random(-5,5),sy:random(-5,5),life:100});
+    }
+}
+function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach((p,i)=>{
+        ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle=p.c;ctx.fill();
+        p.x+=p.sx;p.y+=p.sy;p.life--;
+        if(p.life<=0)particles.splice(i,1);
+    });
+    if(particles.length>0)requestAnimationFrame(animate);
+}
+function startFireworks(){
+    for(let i=0;i<6;i++){
+        setTimeout(()=>{
+            createFirework(random(100,canvas.width-100),random(100,canvas.height-200));
+            animate();
+        },i*400);
+    }
+}
+
+function showLove(){
+
+    const el = document.getElementById("celebration");
+    const y = el.getBoundingClientRect().top + window.pageYOffset + 20; 
+    // 90px = adjust how much top you want (increase/decrease)
+
+    window.scrollTo({
+        top: y,
+        behavior: "smooth"
+    });
+
+    bg.pause();
+    wish.currentTime=0;
+    wish.play();
+    startFireworks();
+    document.getElementById("loveMessage").classList.add("show");
+}
+
+
+function closeLove(){
+    document.getElementById("loveMessage").classList.remove("show");
+}
+function goCarousel(){
+    document.getElementById("carouselScreen")
+        .scrollIntoView({behavior:"smooth"});
+}
+let goTopBtn;
+window.addEventListener("load",()=>{
+    goTopBtn = document.getElementById("goTopBtn");
+});
+
+
+window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+        goTopBtn.style.display = "block";
+    } else {
+        goTopBtn.style.display = "none";
+    }
+});
+
+function goTop(){
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* ===== Intro Typewriter ===== */
+const titleText = "Happy Birthday, Beautiful ❤️";
+const subText = "Today is all about celebrating you and the joy you bring to my life";
+
+let t = 0;
+function typeIntro(){
+    if(t < titleText.length){
+        document.getElementById("introTitle").innerHTML += titleText.charAt(t);
+        t++;
+        setTimeout(typeIntro,60);
+    }else{
+        let s = 0;
+        function typeSub(){
+            if(s < subText.length){
+                document.getElementById("introSub").innerHTML += subText.charAt(s);
+                s++;
+                setTimeout(typeSub,30);
+            }
+        }
+        typeSub();
+    }
+}
+typeIntro();
+
+function goMain(){
+    document.querySelector(".top-section")
+        .scrollIntoView({behavior:"smooth"});
+		wish.currentTime=0;
+    wish.play();
+    startFireworks();
+    document.getElementById("loveMessage").classList.add("show");
+}
+
+/* After carousel go to final message */
+function goFinal(){
+    document.getElementById("finalMessage")
+        .scrollIntoView({behavior:"smooth"});
+}
+
+
+
+</script>
+
+
+</body>
+</html>
